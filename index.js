@@ -7,16 +7,26 @@ const appSettings = {
 
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
-const moviesInDB = ref(database, "movies")
+const shoppingListInDB = ref(database, "shoppingList")
 
 console.log(app)
 
 function addItem() {
     //console.log("adding item")
-    let input = document.getElementById("input").value
+    let input = document.getElementById("input")
+    let value = input.value
 
-    push(moviesInDB, input)
-    console.log("adding " + input + " to db.")
+    push(shoppingListInDB, value)
+    console.log("adding " + value + " to db.")
+    input.value = ""
+
+    //add new li element
+    const list = document.getElementById("list")
+
+    let newEl = document.createElement("li")
+    newEl.innerText = value
+
+    list.appendChild(newEl)
 }
 
 document.getElementById("inputBtn").addEventListener('click', addItem)
